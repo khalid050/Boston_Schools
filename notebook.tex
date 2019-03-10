@@ -1,0 +1,1996 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Boston\_schools}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{py}
+         \PY{n}{school\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{csvFiles/MA\PYZus{}Public\PYZus{}Schools\PYZus{}2017.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show all of the columns}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}columns} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{display}\PY{p}{(}\PY{n}{school\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   School Code                     School Name    School Type   Function  \
+0        10505                   Abington High  Public School  Principal   
+1        10003  Beaver Brook Elementary School  Public School  Principal   
+2        10002        Center Elementary School  Public School  Principal   
+3        10405            Frolio Middle School  Public School  Principal   
+4        10015     Woodsdale Elementary School  Public School  Principal   
+
+           Contact Name            Address 1 Address 2      Town State   Zip  \
+0  Teresa Sullivan-Cruz   201 Gliniewicz Way       NaN  Abington    MA  2351   
+1       Catherine Zinni  1 Ralph Hamlin Lane       NaN  Abington    MA  2351   
+2        Lora Monachino   201 Gliniewicz Way       NaN  Abington    MA  2351   
+3    Matthew MacCurtain   201 Gliniewicz Way       NaN  Abington    MA  2351   
+4        Jonathan Hawes  128 Chestnut Street       NaN  Abington    MA  2351   
+
+          Phone           Fax        Grade District Name  District Code  \
+0  781-982-2160  781-982-0061  09,10,11,12      Abington          10000   
+1  781-982-2185  781-982-2187  01,02,03,04      Abington          10000   
+2  781-982-2195  781-982-0053         PK,K      Abington          10000   
+3  781-982-2170  781-982-2173        07,08      Abington          10000   
+4  781-982-2180  781-982-2184        05,06      Abington          10000   
+
+   PK_Enrollment  K_Enrollment  1_Enrollment  2_Enrollment  3_Enrollment  \
+0              0             0             0             0             0   
+1              0             0           125           164           148   
+2             69           134             0             0             0   
+3              0             0             0             0             0   
+4              0             0             0             0             0   
+
+   4_Enrollment  5_Enrollment  6_Enrollment  7_Enrollment  8_Enrollment  \
+0             0             0             0             0             0   
+1           143             0             0             0             0   
+2             0             0             0             0             0   
+3             0             0             0           159           169   
+4             0           180           173             0             0   
+
+   9_Enrollment  10_Enrollment  11_Enrollment  12_Enrollment  SP_Enrollment  \
+0           124            109            123             92              4   
+1             0              0              0              0              0   
+2             0              0              0              0              0   
+3             0              0              0              0              0   
+4             0              0              0              0              0   
+
+   TOTAL_Enrollment  First Language Not English  % First Language Not English  \
+0               452                        24.0                           5.3   
+1               580                        61.0                          10.5   
+2               203                        26.0                          12.8   
+3               328                        18.0                           5.5   
+4               353                        21.0                           5.9   
+
+   English Language Learner  % English Language Learner  \
+0                      11.0                         2.4   
+1                      42.0                         7.2   
+2                       6.0                         3.0   
+3                       6.0                         1.8   
+4                       7.0                         2.0   
+
+   Students With Disabilities  % Students With Disabilities  High Needs  \
+0                        44.0                           9.7       130.0   
+1                        77.0                          13.3       215.0   
+2                        43.0                          21.2        69.0   
+3                        43.0                          13.1       101.0   
+4                        38.0                          10.8       108.0   
+
+   % High Needs  Economically Disadvantaged  % Economically Disadvantaged  \
+0          28.8                        97.0                          21.5   
+1          37.1                       135.0                          23.3   
+2          34.0                        33.0                          16.3   
+3          30.8                        71.0                          21.6   
+4          30.6                        80.0                          22.7   
+
+   % African American  % Asian  % Hispanic  % White  % Native American  \
+0                 2.2      1.5         9.1     85.8                0.2   
+1                 1.9      1.9         6.7     88.4                0.5   
+2                 3.9      3.0         8.4     84.7                0.0   
+3                 2.4      1.8         6.1     89.3                0.0   
+4                 2.0      1.4         4.2     92.1                0.0   
+
+   % Native Hawaiian, Pacific Islander  % Multi-Race, Non-Hispanic  % Males  \
+0                                  0.2                         0.9     45.6   
+1                                  0.2                         0.3     50.2   
+2                                  0.0                         0.0     54.2   
+3                                  0.0                         0.3     53.4   
+4                                  0.0                         0.3     50.7   
+
+   % Females  Total # of Classes  Average Class Size  Number of Students  \
+0       54.4               204.0                15.8               451.0   
+1       49.8               325.0                24.6               643.0   
+2       45.8               112.0                14.6               208.0   
+3       46.6               218.0                21.1               342.0   
+4       49.3               121.0                30.4               334.0   
+
+   Salary Totals  Average Salary  FTE Count  In-District Expenditures  \
+0      9489496.0         74662.0      127.0               23365711.18   
+1      9489496.0         74662.0      127.0               23365711.18   
+2      9489496.0         74662.0      127.0               23365711.18   
+3      9489496.0         74662.0      127.0               23365711.18   
+4      9489496.0         74662.0      127.0               23365711.18   
+
+   Total In-district FTEs  Average In-District Expenditures per Pupil  \
+0                  1939.0                                    12050.39   
+1                  1939.0                                    12050.39   
+2                  1939.0                                    12050.39   
+3                  1939.0                                    12050.39   
+4                  1939.0                                    12050.39   
+
+   Total Expenditures  Total Pupil FTEs  Average Expenditures per Pupil  \
+0          27229100.8            2051.8                        13270.84   
+1          27229100.8            2051.8                        13270.84   
+2          27229100.8            2051.8                        13270.84   
+3          27229100.8            2051.8                        13270.84   
+4          27229100.8            2051.8                        13270.84   
+
+   # in Cohort  % Graduated  % Still in School  % Non-Grad Completers  % GED  \
+0        114.0         94.7                0.9                    0.0    0.9   
+1          NaN          NaN                NaN                    NaN    NaN   
+2          NaN          NaN                NaN                    NaN    NaN   
+3          NaN          NaN                NaN                    NaN    NaN   
+4          NaN          NaN                NaN                    NaN    NaN   
+
+   % Dropped Out  % Permanently Excluded  High School Graduates (#)  \
+0            3.5                     0.0                      124.0   
+1            NaN                     NaN                        NaN   
+2            NaN                     NaN                        NaN   
+3            NaN                     NaN                        NaN   
+4            NaN                     NaN                        NaN   
+
+   Attending Coll./Univ. (#)  % Attending College  % Private Two-Year  \
+0                       94.0                 75.8                 1.1   
+1                        NaN                  NaN                 NaN   
+2                        NaN                  NaN                 NaN   
+3                        NaN                  NaN                 NaN   
+4                        NaN                  NaN                 NaN   
+
+   % Private Four-Year  % Public Two-Year  % Public Four-Year  \
+0                 22.3               30.9                45.7   
+1                  NaN                NaN                 NaN   
+2                  NaN                NaN                 NaN   
+3                  NaN                NaN                 NaN   
+4                  NaN                NaN                 NaN   
+
+   % MA Community College  % MA State University  % UMass AP_Test Takers  \
+0                    30.9                   19.1      9.6             70   
+1                     NaN                    NaN      NaN            NaN   
+2                     NaN                    NaN      NaN            NaN   
+3                     NaN                    NaN      NaN            NaN   
+4                     NaN                    NaN      NaN            NaN   
+
+  AP_Tests Taken  AP_One Test  AP_Two Tests  AP_Three Tests  AP_Four Tests  \
+0            123         31.0          27.0            11.0            0.0   
+1            NaN          NaN           NaN             NaN            NaN   
+2            NaN          NaN           NaN             NaN            NaN   
+3            NaN          NaN           NaN             NaN            NaN   
+4            NaN          NaN           NaN             NaN            NaN   
+
+   AP_Five or More Tests  AP_Score=1  AP_Score=2  AP_Score=3  AP_Score=4  \
+0                    1.0         8.0        46.0        40.0        20.0   
+1                    NaN         NaN         NaN         NaN         NaN   
+2                    NaN         NaN         NaN         NaN         NaN   
+3                    NaN         NaN         NaN         NaN         NaN   
+4                    NaN         NaN         NaN         NaN         NaN   
+
+   AP_Score=5  % AP_Score 1-2  % AP_Score 3-5  SAT_Tests Taken  \
+0         9.0            43.9            56.1             98.0   
+1         NaN             NaN             NaN              NaN   
+2         NaN             NaN             NaN              NaN   
+3         NaN             NaN             NaN              NaN   
+4         NaN             NaN             NaN              NaN   
+
+   Average SAT_Reading  Average SAT_Writing  Average SAT_Math  \
+0                520.0                498.0             516.0   
+1                  NaN                  NaN               NaN   
+2                  NaN                  NaN               NaN   
+3                  NaN                  NaN               NaN   
+4                  NaN                  NaN               NaN   
+
+   MCAS_3rdGrade_Math_P+A #  % MCAS_3rdGrade_Math_P+A  MCAS_3rdGrade_Math_A #  \
+0                       NaN                       NaN                     NaN   
+1                      92.0                      66.0                    41.0   
+2                       NaN                       NaN                     NaN   
+3                       NaN                       NaN                     NaN   
+4                       NaN                       NaN                     NaN   
+
+   % MCAS_3rdGrade_Math_A  MCAS_3rdGrade_Math_P #  % MCAS_3rdGrade_Math_P  \
+0                     NaN                     NaN                     NaN   
+1                    29.0                    51.0                    36.0   
+2                     NaN                     NaN                     NaN   
+3                     NaN                     NaN                     NaN   
+4                     NaN                     NaN                     NaN   
+
+   MCAS_3rdGrade_Math_NI #  % MCAS_3rdGrade_Math_NI  MCAS_3rdGrade_Math_W/F #  \
+0                      NaN                      NaN                       NaN   
+1                     36.0                     26.0                      12.0   
+2                      NaN                      NaN                       NaN   
+3                      NaN                      NaN                       NaN   
+4                      NaN                      NaN                       NaN   
+
+   % MCAS_3rdGrade_Math_W/F  MCAS_3rdGrade_Math_Stud. Incl. #  \
+0                       NaN                               NaN   
+1                       9.0                             140.0   
+2                       NaN                               NaN   
+3                       NaN                               NaN   
+4                       NaN                               NaN   
+
+   MCAS_3rdGrade_Math_CPI  MCAS_3rdGrade_Math_SGP  \
+0                     NaN                     NaN   
+1                    84.1                     NaN   
+2                     NaN                     NaN   
+3                     NaN                     NaN   
+4                     NaN                     NaN   
+
+   MCAS_3rdGrade_Math_Incl. in SGP(#)  MCAS_4thGrade_Math_P+A #  \
+0                                 NaN                       NaN   
+1                                 NaN                      94.0   
+2                                 NaN                       NaN   
+3                                 NaN                       NaN   
+4                                 NaN                       NaN   
+
+   % MCAS_4thGrade_Math_P+A  MCAS_4thGrade_Math_A #  % MCAS_4thGrade_Math_A  \
+0                       NaN                     NaN                     NaN   
+1                      56.0                    34.0                    20.0   
+2                       NaN                     NaN                     NaN   
+3                       NaN                     NaN                     NaN   
+4                       NaN                     NaN                     NaN   
+
+   MCAS_4thGrade_Math_P #  % MCAS_4thGrade_Math_P  MCAS_4thGrade_Math_NI #  \
+0                     NaN                     NaN                      NaN   
+1                    60.0                    36.0                     63.0   
+2                     NaN                     NaN                      NaN   
+3                     NaN                     NaN                      NaN   
+4                     NaN                     NaN                      NaN   
+
+   % MCAS_4thGrade_Math_NI  MCAS_4thGrade_Math_W/F #  \
+0                      NaN                       NaN   
+1                     37.0                      12.0   
+2                      NaN                       NaN   
+3                      NaN                       NaN   
+4                      NaN                       NaN   
+
+   % MCAS_4thGrade_Math_W/F  MCAS_4thGrade_Math_Stud. Incl. #  \
+0                       NaN                               NaN   
+1                       7.0                             169.0   
+2                       NaN                               NaN   
+3                       NaN                               NaN   
+4                       NaN                               NaN   
+
+   MCAS_4thGrade_Math_CPI  MCAS_4thGrade_Math_SGP  \
+0                     NaN                     NaN   
+1                    82.0                    56.0   
+2                     NaN                     NaN   
+3                     NaN                     NaN   
+4                     NaN                     NaN   
+
+   MCAS_4thGrade_Math_Incl. in SGP(#)  MCAS_5thGrade_Math_P+A #  \
+0                                 NaN                       NaN   
+1                               166.0                       NaN   
+2                                 NaN                       NaN   
+3                                 NaN                       NaN   
+4                                 NaN                      99.0   
+
+   % MCAS_5thGrade_Math_P+A  MCAS_5thGrade_Math_A #  % MCAS_5thGrade_Math_A  \
+0                       NaN                     NaN                     NaN   
+1                       NaN                     NaN                     NaN   
+2                       NaN                     NaN                     NaN   
+3                       NaN                     NaN                     NaN   
+4                      60.0                    42.0                    26.0   
+
+   MCAS_5thGrade_Math_P #  % MCAS_5thGrade_Math_P  MCAS_5thGrade_Math_NI #  \
+0                     NaN                     NaN                      NaN   
+1                     NaN                     NaN                      NaN   
+2                     NaN                     NaN                      NaN   
+3                     NaN                     NaN                      NaN   
+4                    57.0                    35.0                     43.0   
+
+   % MCAS_5thGrade_Math_NI  MCAS_5thGrade_Math_W/F #  \
+0                      NaN                       NaN   
+1                      NaN                       NaN   
+2                      NaN                       NaN   
+3                      NaN                       NaN   
+4                     26.0                      22.0   
+
+   % MCAS_5thGrade_Math_W/F  MCAS_5thGrade_Math_Stud. Incl. #  \
+0                       NaN                               NaN   
+1                       NaN                               NaN   
+2                       NaN                               NaN   
+3                       NaN                               NaN   
+4                      13.0                             164.0   
+
+   MCAS_5thGrade_Math_CPI  MCAS_5thGrade_Math_SGP  \
+0                     NaN                     NaN   
+1                     NaN                     NaN   
+2                     NaN                     NaN   
+3                     NaN                     NaN   
+4                    79.4                    58.0   
+
+   MCAS_5thGrade_Math_Incl. in SGP(#)  MCAS_6thGrade_Math_P+A #  \
+0                                 NaN                       NaN   
+1                                 NaN                       NaN   
+2                                 NaN                       NaN   
+3                                 NaN                       NaN   
+4                               160.0                      93.0   
+
+   % MCAS_6thGrade_Math_P+A  MCAS_6thGrade_Math_A #  % MCAS_6thGrade_Math_A  \
+0                       NaN                     NaN                     NaN   
+1                       NaN                     NaN                     NaN   
+2                       NaN                     NaN                     NaN   
+3                       NaN                     NaN                     NaN   
+4                      59.0                    30.0                    19.0   
+
+   MCAS_6thGrade_Math_P #  % MCAS_6thGrade_Math_P  MCAS_6thGrade_Math_NI #  \
+0                     NaN                     NaN                      NaN   
+1                     NaN                     NaN                      NaN   
+2                     NaN                     NaN                      NaN   
+3                     NaN                     NaN                      NaN   
+4                    63.0                    40.0                     47.0   
+
+   % MCAS_6thGrade_Math_NI  MCAS_6thGrade_Math_W/F #  \
+0                      NaN                       NaN   
+1                      NaN                       NaN   
+2                      NaN                       NaN   
+3                      NaN                       NaN   
+4                     30.0                      18.0   
+
+   % MCAS_6thGrade_Math_W/F  MCAS_6thGrade_Math_Stud. Incl. #  \
+0                       NaN                               NaN   
+1                       NaN                               NaN   
+2                       NaN                               NaN   
+3                       NaN                               NaN   
+4                      11.0                             158.0   
+
+   MCAS_6thGrade_Math_CPI  MCAS_6thGrade_Math_SGP  \
+0                     NaN                     NaN   
+1                     NaN                     NaN   
+2                     NaN                     NaN   
+3                     NaN                     NaN   
+4                    79.7                    60.0   
+
+   MCAS_6thGrade_Math_Incl. in SGP(#)  MCAS_7thGrade_Math_P+A #  \
+0                                 NaN                       NaN   
+1                                 NaN                       NaN   
+2                                 NaN                       NaN   
+3                                 NaN                      76.0   
+4                               153.0                       NaN   
+
+   % MCAS_7thGrade_Math_P+A  MCAS_7thGrade_Math_A #  % MCAS_7thGrade_Math_A  \
+0                       NaN                     NaN                     NaN   
+1                       NaN                     NaN                     NaN   
+2                       NaN                     NaN                     NaN   
+3                      46.0                    29.0                    17.0   
+4                       NaN                     NaN                     NaN   
+
+   MCAS_7thGrade_Math_P #  % MCAS_7thGrade_Math_P  MCAS_7thGrade_Math_NI #  \
+0                     NaN                     NaN                      NaN   
+1                     NaN                     NaN                      NaN   
+2                     NaN                     NaN                      NaN   
+3                    47.0                    28.0                     60.0   
+4                     NaN                     NaN                      NaN   
+
+   % MCAS_7thGrade_Math_NI  MCAS_7thGrade_Math_W/F #  \
+0                      NaN                       NaN   
+1                      NaN                       NaN   
+2                      NaN                       NaN   
+3                     36.0                      30.0   
+4                      NaN                       NaN   
+
+   % MCAS_7thGrade_Math_W/F  MCAS_7thGrade_Math_Stud. Incl. #  \
+0                       NaN                               NaN   
+1                       NaN                               NaN   
+2                       NaN                               NaN   
+3                      18.0                             166.0   
+4                       NaN                               NaN   
+
+   MCAS_7thGrade_Math_CPI  MCAS_7thGrade_Math_SGP  \
+0                     NaN                     NaN   
+1                     NaN                     NaN   
+2                     NaN                     NaN   
+3                    73.2                    47.0   
+4                     NaN                     NaN   
+
+   MCAS_7thGrade_Math_Incl. in SGP(#)  MCAS_8thGrade_Math_P+A #  \
+0                                 NaN                       NaN   
+1                                 NaN                       NaN   
+2                                 NaN                       NaN   
+3                               160.0                      89.0   
+4                                 NaN                       NaN   
+
+   % MCAS_8thGrade_Math_P+A  MCAS_8thGrade_Math_A #  % MCAS_8thGrade_Math_A  \
+0                       NaN                     NaN                     NaN   
+1                       NaN                     NaN                     NaN   
+2                       NaN                     NaN                     NaN   
+3                      57.0                    36.0                    23.0   
+4                       NaN                     NaN                     NaN   
+
+   MCAS_8thGrade_Math_P #  % MCAS_8thGrade_Math_P  MCAS_8thGrade_Math_NI #  \
+0                     NaN                     NaN                      NaN   
+1                     NaN                     NaN                      NaN   
+2                     NaN                     NaN                      NaN   
+3                    53.0                    34.0                     48.0   
+4                     NaN                     NaN                      NaN   
+
+   % MCAS_8thGrade_Math_NI  MCAS_8thGrade_Math_W/F #  \
+0                      NaN                       NaN   
+1                      NaN                       NaN   
+2                      NaN                       NaN   
+3                     31.0                      20.0   
+4                      NaN                       NaN   
+
+   % MCAS_8thGrade_Math_W/F  MCAS_8thGrade_Math_Stud. Incl. #  \
+0                       NaN                               NaN   
+1                       NaN                               NaN   
+2                       NaN                               NaN   
+3                      13.0                             157.0   
+4                       NaN                               NaN   
+
+   MCAS_8thGrade_Math_CPI  MCAS_8thGrade_Math_SGP  \
+0                     NaN                     NaN   
+1                     NaN                     NaN   
+2                     NaN                     NaN   
+3                    80.9                    54.0   
+4                     NaN                     NaN   
+
+   MCAS_8thGrade_Math_Incl. in SGP(#)  MCAS_10thGrade_Math_P+A #  \
+0                                 NaN                      104.0   
+1                                 NaN                        NaN   
+2                                 NaN                        NaN   
+3                               151.0                        NaN   
+4                                 NaN                        NaN   
+
+   % MCAS_10thGrade_Math_P+A  MCAS_10thGrade_Math_A #  \
+0                       83.0                     73.0   
+1                        NaN                      NaN   
+2                        NaN                      NaN   
+3                        NaN                      NaN   
+4                        NaN                      NaN   
+
+   % MCAS_10thGrade_Math_A  MCAS_10thGrade_Math_P #  % MCAS_10thGrade_Math_P  \
+0                     58.0                     31.0                     25.0   
+1                      NaN                      NaN                      NaN   
+2                      NaN                      NaN                      NaN   
+3                      NaN                      NaN                      NaN   
+4                      NaN                      NaN                      NaN   
+
+   MCAS_10thGrade_Math_NI #  % MCAS_10thGrade_Math_NI  \
+0                      14.0                      11.0   
+1                       NaN                       NaN   
+2                       NaN                       NaN   
+3                       NaN                       NaN   
+4                       NaN                       NaN   
+
+   MCAS_10thGrade_Math_W/F #  % MCAS_10thGrade_Math_W/F  \
+0                        7.0                        6.0   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                        NaN                        NaN   
+
+   MCAS_10thGrade_Math_Stud. Incl. #  MCAS_10thGrade_Math_CPI  \
+0                              125.0                     94.2   
+1                                NaN                      NaN   
+2                                NaN                      NaN   
+3                                NaN                      NaN   
+4                                NaN                      NaN   
+
+   MCAS_10thGrade_Math_SGP  MCAS_10thGrade_Math_Incl. in SGP(#)  \
+0                     52.5                                114.0   
+1                      NaN                                  NaN   
+2                      NaN                                  NaN   
+3                      NaN                                  NaN   
+4                      NaN                                  NaN   
+
+   MCAS_3rdGrade_English_P+A #  % MCAS_3rdGrade_English_P+A  \
+0                          NaN                          NaN   
+1                         81.0                         57.0   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                          NaN                          NaN   
+
+   MCAS_3rdGrade_English_A #  % MCAS_3rdGrade_English_A  \
+0                        NaN                        NaN   
+1                       14.0                       10.0   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                        NaN                        NaN   
+
+   MCAS_3rdGrade_English_P #  % MCAS_3rdGrade_English_P  \
+0                        NaN                        NaN   
+1                       67.0                       48.0   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                        NaN                        NaN   
+
+   MCAS_3rdGrade_English_NI #  % MCAS_3rdGrade_English_NI  \
+0                         NaN                         NaN   
+1                        52.0                        37.0   
+2                         NaN                         NaN   
+3                         NaN                         NaN   
+4                         NaN                         NaN   
+
+   MCAS_3rdGrade_English_W/F #  % MCAS_3rdGrade_English_W/F  \
+0                          NaN                          NaN   
+1                          8.0                          6.0   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                          NaN                          NaN   
+
+   MCAS_3rdGrade_English_Stud. Incl. #  MCAS_3rdGrade_English_CPI  \
+0                                  NaN                        NaN   
+1                                141.0                       84.2   
+2                                  NaN                        NaN   
+3                                  NaN                        NaN   
+4                                  NaN                        NaN   
+
+   MCAS_3rdGrade_English_SGP  MCAS_3rdGrade_English_Incl. in SGP(#)  \
+0                        NaN                                    NaN   
+1                        NaN                                    NaN   
+2                        NaN                                    NaN   
+3                        NaN                                    NaN   
+4                        NaN                                    NaN   
+
+   MCAS_4thGrade_English_P+A #  % MCAS_4thGrade_English_P+A  \
+0                          NaN                          NaN   
+1                        104.0                         61.0   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                          NaN                          NaN   
+
+   MCAS_4thGrade_English_A #  % MCAS_4thGrade_English_A  \
+0                        NaN                        NaN   
+1                       10.0                        6.0   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                        NaN                        NaN   
+
+   MCAS_4thGrade_English_P #  % MCAS_4thGrade_English_P  \
+0                        NaN                        NaN   
+1                       94.0                       55.0   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                        NaN                        NaN   
+
+   MCAS_4thGrade_English_NI #  % MCAS_4thGrade_English_NI  \
+0                         NaN                         NaN   
+1                        52.0                        31.0   
+2                         NaN                         NaN   
+3                         NaN                         NaN   
+4                         NaN                         NaN   
+
+   MCAS_4thGrade_English_W/F #  % MCAS_4thGrade_English_W/F  \
+0                          NaN                          NaN   
+1                         14.0                          8.0   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                          NaN                          NaN   
+
+   MCAS_4thGrade_English_Stud. Incl. #  MCAS_4thGrade_English_CPI  \
+0                                  NaN                        NaN   
+1                                170.0                       82.9   
+2                                  NaN                        NaN   
+3                                  NaN                        NaN   
+4                                  NaN                        NaN   
+
+   MCAS_4thGrade_English_SGP  MCAS_4thGrade_English_Incl. in SGP(#)  \
+0                        NaN                                    NaN   
+1                       56.0                                  167.0   
+2                        NaN                                    NaN   
+3                        NaN                                    NaN   
+4                        NaN                                    NaN   
+
+   MCAS_5thGrade_English_P+A #  % MCAS_5thGrade_English_P+A  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                        110.0                         67.0   
+
+   MCAS_5thGrade_English_A #  % MCAS_5thGrade_English_A  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                       35.0                       21.0   
+
+   MCAS_5thGrade_English_P #  % MCAS_5thGrade_English_P  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                       75.0                       45.0   
+
+   MCAS_5thGrade_English_NI #  % MCAS_5thGrade_English_NI  \
+0                         NaN                         NaN   
+1                         NaN                         NaN   
+2                         NaN                         NaN   
+3                         NaN                         NaN   
+4                        39.0                        24.0   
+
+   MCAS_5thGrade_English_W/F #  % MCAS_5thGrade_English_W/F  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                         16.0                         10.0   
+
+   MCAS_5thGrade_English_Stud. Incl. #  MCAS_5thGrade_English_CPI  \
+0                                  NaN                        NaN   
+1                                  NaN                        NaN   
+2                                  NaN                        NaN   
+3                                  NaN                        NaN   
+4                                165.0                       84.5   
+
+   MCAS_5thGrade_English_SGP  MCAS_5thGrade_English_Incl. in SGP(#)  \
+0                        NaN                                    NaN   
+1                        NaN                                    NaN   
+2                        NaN                                    NaN   
+3                        NaN                                    NaN   
+4                       49.0                                  161.0   
+
+   MCAS_6thGrade_English_P+A #  % MCAS_6thGrade_English_P+A  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                        123.0                         78.0   
+
+   MCAS_6thGrade_English_A #  % MCAS_6thGrade_English_A  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                       30.0                       19.0   
+
+   MCAS_6thGrade_English_P #  % MCAS_6thGrade_English_P  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                        NaN                        NaN   
+4                       93.0                       59.0   
+
+   MCAS_6thGrade_English_NI #  % MCAS_6thGrade_English_NI  \
+0                         NaN                         NaN   
+1                         NaN                         NaN   
+2                         NaN                         NaN   
+3                         NaN                         NaN   
+4                        27.0                        17.0   
+
+   MCAS_6thGrade_English_W/F #  % MCAS_6thGrade_English_W/F  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                          8.0                          5.0   
+
+   MCAS_6thGrade_English_Stud. Incl. #  MCAS_6thGrade_English_CPI  \
+0                                  NaN                        NaN   
+1                                  NaN                        NaN   
+2                                  NaN                        NaN   
+3                                  NaN                        NaN   
+4                                158.0                       90.0   
+
+   MCAS_6thGrade_English_SGP  MCAS_6thGrade_English_Incl. in SGP(#)  \
+0                        NaN                                    NaN   
+1                        NaN                                    NaN   
+2                        NaN                                    NaN   
+3                        NaN                                    NaN   
+4                       54.0                                  153.0   
+
+   MCAS_7thGrade_English_P+A #  % MCAS_7thGrade_English_P+A  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                        134.0                         81.0   
+4                          NaN                          NaN   
+
+   MCAS_7thGrade_English_A #  % MCAS_7thGrade_English_A  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                       20.0                       12.0   
+4                        NaN                        NaN   
+
+   MCAS_7thGrade_English_P #  % MCAS_7thGrade_English_P  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                      114.0                       69.0   
+4                        NaN                        NaN   
+
+   MCAS_7thGrade_English_NI #  % MCAS_7thGrade_English_NI  \
+0                         NaN                         NaN   
+1                         NaN                         NaN   
+2                         NaN                         NaN   
+3                        30.0                        18.0   
+4                         NaN                         NaN   
+
+   MCAS_7thGrade_English_W/F #  % MCAS_7thGrade_English_W/F  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          2.0                          1.0   
+4                          NaN                          NaN   
+
+   MCAS_7thGrade_English_Stud. Incl. #  MCAS_7thGrade_English_CPI  \
+0                                  NaN                        NaN   
+1                                  NaN                        NaN   
+2                                  NaN                        NaN   
+3                                166.0                       93.2   
+4                                  NaN                        NaN   
+
+   MCAS_7thGrade_English_SGP  MCAS_7thGrade_English_Incl. in SGP(#)  \
+0                        NaN                                    NaN   
+1                        NaN                                    NaN   
+2                        NaN                                    NaN   
+3                       57.0                                  160.0   
+4                        NaN                                    NaN   
+
+   MCAS_8thGrade_English_P+A #  % MCAS_8thGrade_English_P+A  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                        124.0                         79.0   
+4                          NaN                          NaN   
+
+   MCAS_8thGrade_English_A #  % MCAS_8thGrade_English_A  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                       16.0                       10.0   
+4                        NaN                        NaN   
+
+   MCAS_8thGrade_English_P #  % MCAS_8thGrade_English_P  \
+0                        NaN                        NaN   
+1                        NaN                        NaN   
+2                        NaN                        NaN   
+3                      108.0                       69.0   
+4                        NaN                        NaN   
+
+   MCAS_8thGrade_English_NI #  % MCAS_8thGrade_English_NI  \
+0                         NaN                         NaN   
+1                         NaN                         NaN   
+2                         NaN                         NaN   
+3                        26.0                        17.0   
+4                         NaN                         NaN   
+
+   MCAS_8thGrade_English_W/F #  % MCAS_8thGrade_English_W/F  \
+0                          NaN                          NaN   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          7.0                          4.0   
+4                          NaN                          NaN   
+
+   MCAS_8thGrade_English_Stud. Incl. #  MCAS_8thGrade_English_CPI  \
+0                                  NaN                        NaN   
+1                                  NaN                        NaN   
+2                                  NaN                        NaN   
+3                                157.0                       93.2   
+4                                  NaN                        NaN   
+
+   MCAS_8thGrade_English_SGP  MCAS_8thGrade_English_Incl. in SGP(#)  \
+0                        NaN                                    NaN   
+1                        NaN                                    NaN   
+2                        NaN                                    NaN   
+3                       42.0                                  149.0   
+4                        NaN                                    NaN   
+
+   MCAS_10thGrade_English_P+A #  % MCAS_10thGrade_English_P+A  \
+0                         117.0                          94.0   
+1                           NaN                           NaN   
+2                           NaN                           NaN   
+3                           NaN                           NaN   
+4                           NaN                           NaN   
+
+   MCAS_10thGrade_English_A #  % MCAS_10thGrade_English_A  \
+0                        60.0                        48.0   
+1                         NaN                         NaN   
+2                         NaN                         NaN   
+3                         NaN                         NaN   
+4                         NaN                         NaN   
+
+   MCAS_10thGrade_English_P #  % MCAS_10thGrade_English_P  \
+0                        57.0                        46.0   
+1                         NaN                         NaN   
+2                         NaN                         NaN   
+3                         NaN                         NaN   
+4                         NaN                         NaN   
+
+   MCAS_10thGrade_English_NI #  % MCAS_10thGrade_English_NI  \
+0                          2.0                          2.0   
+1                          NaN                          NaN   
+2                          NaN                          NaN   
+3                          NaN                          NaN   
+4                          NaN                          NaN   
+
+   MCAS_10thGrade_English_W/F #  % MCAS_10thGrade_English_W/F  \
+0                           5.0                           4.0   
+1                           NaN                           NaN   
+2                           NaN                           NaN   
+3                           NaN                           NaN   
+4                           NaN                           NaN   
+
+   MCAS_10thGrade_English_Stud. Incl. #  MCAS_10thGrade_English_CPI  \
+0                                 124.0                        98.8   
+1                                   NaN                         NaN   
+2                                   NaN                         NaN   
+3                                   NaN                         NaN   
+4                                   NaN                         NaN   
+
+   MCAS_10thGrade_English_SGP  MCAS_10thGrade_English_Incl. in SGP(#)  \
+0                        56.0                                   111.0   
+1                         NaN                                     NaN   
+2                         NaN                                     NaN   
+3                         NaN                                     NaN   
+4                         NaN                                     NaN   
+
+  Accountability and Assistance Level  \
+0                             Level 1   
+1                             Level 3   
+2                   Insufficient data   
+3                             Level 2   
+4                             Level 2   
+
+  Accountability and Assistance Description  \
+0               Meeting gap narrowing goals   
+1  Among lowest performing 20% of subgroups   
+2                                       NaN   
+3           Not meeting gap narrowing goals   
+4           Not meeting gap narrowing goals   
+
+   School Accountability Percentile (1-99)  \
+0                                     42.0   
+1                                     34.0   
+2                                      NaN   
+3                                     40.0   
+4                                     52.0   
+
+   Progress and Performance Index (PPI) - All Students  \
+0                                               76.0     
+1                                               69.0     
+2                                                NaN     
+3                                               63.0     
+4                                               65.0     
+
+   Progress and Performance Index (PPI) - High Needs Students  \
+0                                               75.0            
+1                                               73.0            
+2                                                NaN            
+3                                               64.0            
+4                                               67.0            
+
+  District_Accountability and Assistance Level  \
+0                                      Level 3   
+1                                      Level 3   
+2                                      Level 3   
+3                                      Level 3   
+4                                      Level 3   
+
+  District_Accountability and Assistance Description  \
+0  One or more schools in the district classified...   
+1  One or more schools in the district classified...   
+2  One or more schools in the district classified...   
+3  One or more schools in the district classified...   
+4  One or more schools in the district classified...   
+
+   District_Progress and Performance Index (PPI) - All Students  \
+0                                               63.0              
+1                                               63.0              
+2                                               63.0              
+3                                               63.0              
+4                                               63.0              
+
+   District_Progress and Performance Index (PPI) - High Needs Students  
+0                                               60.0                    
+1                                               60.0                    
+2                                               60.0                    
+3                                               60.0                    
+4                                               60.0                    
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} array(['Public School', 'Charter School'], dtype=object)
+\end{Verbatim}
+            
+    \section{Only high schools in Massachusetts and
+Boston}\label{only-high-schools-in-massachusetts-and-boston}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{useful\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Town}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} F}\PY{l+s+s1}{irst Language Not English}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} E}\PY{l+s+s1}{nglish Language Learner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Students With Disabilities}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} E}\PY{l+s+s1}{conomically Disadvantaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ African American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Hispanic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ White}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Native Hawaiian, Pacific Islander}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Multi\PYZhy{}Race, Non\PYZhy{}Hispanic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Males}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} F}\PY{l+s+s1}{emales}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total \PYZsh{} of Classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Class Size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Attending College}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Private Two\PYZhy{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Private Four\PYZhy{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Public Two\PYZhy{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Public Four\PYZhy{}Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ MA Community College}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ AP\PYZus{}Score 1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ AP\PYZus{}Score 3\PYZhy{}5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Writing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Math}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average Salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{school\PYZus{}data}\PY{o}{=} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{n}{useful\PYZus{}cols}\PY{p}{]}
+         
+         
+         \PY{c+c1}{\PYZsh{}removing schools without SAT data}
+         \PY{n}{school\PYZus{}data} \PY{o}{=} \PY{n}{school\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} concat Total SAT Scores}
+         \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Reading}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Writing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT\PYZus{}Math}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}school\PYZus{}data.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} only the high schools in Massachussetts}
+         
+         \PY{n}{high\PYZus{}schools} \PY{o}{=} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{09,10,11,12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{na}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{]}
+         
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}columns} \PY{o}{=} \PY{k+kc}{None}
+         \PY{n}{display}\PY{p}{(}\PY{n}{high\PYZus{}schools}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+       School Name    School Type       Town   Zip        Grade  \
+0    Abington High  Public School   Abington  2351  09,10,11,12   
+8      Agawam High  Public School     Agawam  1001  09,10,11,12   
+16   Amesbury High  Public School   Amesbury  1913  09,10,11,12   
+23    Andover High  Public School    Andover  1810  09,10,11,12   
+33  Arlington High  Public School  Arlington  2476  09,10,11,12   
+
+    % First Language Not English  % English Language Learner  \
+0                            5.3                         2.4   
+8                            4.6                         1.3   
+16                           2.9                         0.5   
+23                           9.5                         0.8   
+33                          12.4                         0.9   
+
+    % Students With Disabilities  % Economically Disadvantaged  \
+0                            9.7                          21.5   
+8                           14.1                          22.7   
+16                          17.0                          14.6   
+23                          16.1                           6.3   
+33                          11.1                          10.3   
+
+    % African American  % Asian  % Hispanic  % White  \
+0                  2.2      1.5         9.1     85.8   
+8                  1.2      2.2         5.8     88.8   
+16                 1.3      1.2         4.2     90.7   
+23                 1.9     14.5         5.0     76.3   
+33                 4.1     10.7         5.7     75.6   
+
+    % Native Hawaiian, Pacific Islander  % Multi-Race, Non-Hispanic  % Males  \
+0                                   0.2                         0.9     45.6   
+8                                   0.1                         1.9     52.0   
+16                                  0.0                         2.5     53.5   
+23                                  0.0                         2.2     48.9   
+33                                  0.2                         3.7     49.1   
+
+    % Females  Total # of Classes  Average Class Size  % Attending College  \
+0        54.4               204.0                15.8                 75.8   
+8        48.0               590.0                16.8                 81.6   
+16       46.5               380.0                16.7                 72.6   
+23       51.1              1160.0                14.7                 89.3   
+33       50.9               682.0                14.3                 85.0   
+
+    % Private Two-Year  % Private Four-Year  % Public Two-Year  \
+0                  1.1                 22.3               30.9   
+8                  0.0                 34.5               34.0   
+16                 0.0                 24.4               35.6   
+23                 0.0                 56.4                7.6   
+33                 0.0                 53.5                9.6   
+
+    % Public Four-Year  % MA Community College  % AP_Score 1-2  \
+0                 45.7                    30.9            43.9   
+8                 31.5                    33.2            33.6   
+16                40.0                    35.6            19.0   
+23                36.0                     7.3            21.9   
+33                36.9                     8.5            13.9   
+
+    % AP_Score 3-5  Average SAT_Reading  Average SAT_Writing  \
+0             56.1                520.0                498.0   
+8             66.4                496.0                475.0   
+16            81.0                531.0                518.0   
+23            78.1                566.0                562.0   
+33            86.1                581.0                576.0   
+
+    Average SAT_Math  Average Salary  Total SAT  
+0              516.0         74662.0     1534.0  
+8              514.0         64769.0     1485.0  
+16             534.0         77147.0     1583.0  
+23             581.0         81211.0     1709.0  
+33             592.0         66493.0     1749.0  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} only high schools in Boston}
+         \PY{n}{boston\PYZus{}zip}\PY{o}{=} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{02108 02109 02110 02111 02113 02114 02115 02116 02118 02119 02120 02121 02122 02124 02125 02126 02127 02128 02129 02130 02131 02132 02133 02134 02135 02136 02163 02199 02203 02210 02215 02222}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{boston\PYZus{}zip} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{number}\PY{p}{)} \PY{k}{for} \PY{n}{number} \PY{o+ow}{in} \PY{n}{boston\PYZus{}zip}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         
+         \PY{n}{boston\PYZus{}schools} \PY{o}{=} \PY{n}{high\PYZus{}schools}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{high\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{boston\PYZus{}zip}\PY{p}{)}\PY{p}{]}
+         \PY{n}{boston\PYZus{}schools}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:}                                            School Name     School Type  \textbackslash{}
+         115                          Another Course To College   Public School   
+         120                                Boston Arts Academy   Public School   
+         122                Boston Community Leadership Academy   Public School   
+         123                   Boston International High School   Public School   
+         124                                       Boston Latin   Public School   
+         125                               Boston Latin Academy   Public School   
+         127                                      Brighton High   Public School   
+         131                                   Charlestown High   Public School   
+         134            Community Academy of Science and Health   Public School   
+         142                                 Dorchester Academy   Public School   
+         145                        Dr. William Henderson Upper   Public School   
+         148                                   East Boston High   Public School   
+         153                                  Excel High School   Public School   
+         154                                 Fenway High School   Public School   
+         172                              Jeremiah E Burke High   Public School   
+         188                                    Lyon Upper 9-12   Public School   
+         189                                  Madison Park High   Public School   
+         191                            Margarita Muniz Academy   Public School   
+         201                            New Mission High School   Public School   
+         203                       O'Bryant School Math/Science   Public School   
+         210                                Quincy Upper School   Public School   
+         217             Snowden International School at Copley   Public School   
+         218                                 TechBoston Academy   Public School   
+         219                                   The English High   Public School   
+         222                              Urban Science Academy   Public School   
+         225                               West Roxbury Academy   Public School   
+         524                   Boston Collegiate Charter School  Charter School   
+         525      Boston Day and Evening Academy Charter School  Charter School   
+         526    Boston Green Academy Horace Mann Charter School  Charter School   
+         527           Boston Preparatory Charter Public School  Charter School   
+         550  City on a Hill Charter Public School Circuit S{\ldots}  Charter School   
+         551               Codman Academy Charter Public School  Charter School   
+         579  Edward M. Kennedy Academy for Health Careers ({\ldots}  Charter School   
+         917                        MATCH Charter Public School  Charter School   
+         
+                       Town   Zip                                     Grade  \textbackslash{}
+         115      Hyde Park  2136                               09,10,11,12   
+         120         Boston  2215                               09,10,11,12   
+         122      Hyde Park  2136                               09,10,11,12   
+         123     Dorchester  2124                               09,10,11,12   
+         124         Boston  2115                         07,08,09,10,11,12   
+         125     Dorchester  2121                         07,08,09,10,11,12   
+         127       Brighton  2135                               09,10,11,12   
+         131    Charlestown  2129                               09,10,11,12   
+         134     Dorchester  2122                               09,10,11,12   
+         142     Dorchester  2125                               09,10,11,12   
+         145     Dorchester  2124             03,04,05,06,07,08,09,10,11,12   
+         148    East Boston  2128                               09,10,11,12   
+         153   South Boston  2127                               09,10,11,12   
+         154        Roxbury  2120                               09,10,11,12   
+         172     Dorchester  2121                               09,10,11,12   
+         188       Brighton  2135                               09,10,11,12   
+         189        Roxbury  2120                               09,10,11,12   
+         191         Boston  2130                               09,10,11,12   
+         201      Hyde Park  2136                               09,10,11,12   
+         203        Roxbury  2120                         07,08,09,10,11,12   
+         210         Boston  2116                      06,07,08,09,10,11,12   
+         217         Boston  2116                               09,10,11,12   
+         218     Dorchester  2124                      06,07,08,09,10,11,12   
+         219  Jamaica Plain  2130                               09,10,11,12   
+         222   West Roxbury  2132                               09,10,11,12   
+         225   West Roxbury  2132                               09,10,11,12   
+         524     Dorchester  2125                   05,06,07,08,09,10,11,12   
+         525        Roxbury  2119                               09,10,11,12   
+         526       Brighton  2135                      06,07,08,09,10,11,12   
+         527      Hyde Park  2136                      06,07,08,09,10,11,12   
+         550        Roxbury  2119                               09,10,11,12   
+         551     Dorchester  2124  PK,K,01,02,03,04,05,06,07,08,09,10,11,12   
+         579         Boston  2115                               09,10,11,12   
+         917         Boston  2215  PK,K,01,02,03,04,05,06,07,08,09,10,11,12   
+         
+              \% First Language Not English  \% English Language Learner  \textbackslash{}
+         115                          48.0                        17.0   
+         120                          35.8                         4.5   
+         122                          61.0                        24.6   
+         123                         100.0                        79.6   
+         124                          32.7                         3.2   
+         125                          41.6                         1.8   
+         127                          59.3                        41.6   
+         131                          61.9                        41.5   
+         134                          45.8                        31.0   
+         142                          33.3                         8.1   
+         145                          25.1                        11.5   
+         148                          76.7                        43.4   
+         153                          53.9                        29.7   
+         154                          50.8                        20.0   
+         172                          49.7                        34.4   
+         188                          34.1                         9.5   
+         189                          57.1                        33.7   
+         191                          84.5                        50.7   
+         201                          32.5                         5.9   
+         203                          53.0                         3.5   
+         210                          68.2                        16.2   
+         217                          52.6                        18.9   
+         218                          45.4                        22.7   
+         219                          54.2                        37.8   
+         222                          37.3                        12.7   
+         225                          51.2                        26.4   
+         524                          11.2                         3.4   
+         525                          12.1                         9.2   
+         526                          33.0                        13.0   
+         527                          20.0                        10.1   
+         550                          30.5                        10.4   
+         551                          14.8                         0.0   
+         579                          50.7                        13.6   
+         917                          60.0                        34.2   
+         
+              \% Students With Disabilities  \% Economically Disadvantaged  \textbackslash{}
+         115                          22.0                          61.4   
+         120                          13.4                          43.6   
+         122                          22.0                          56.0   
+         123                           4.2                          60.3   
+         124                           2.1                          15.7   
+         125                           2.9                          31.7   
+         127                          23.8                          61.0   
+         131                          25.3                          62.9   
+         134                          36.2                          66.8   
+         142                          34.3                          72.7   
+         145                          42.6                          54.7   
+         148                          15.4                          46.0   
+         153                          27.4                          64.6   
+         154                          19.7                          48.3   
+         172                          12.1                          61.1   
+         188                          41.3                          49.2   
+         189                          34.8                          68.1   
+         191                          11.3                          64.4   
+         201                          16.3                          53.1   
+         203                           3.5                          44.7   
+         210                          17.0                          63.6   
+         217                          20.5                          62.6   
+         218                          22.1                          66.6   
+         219                          19.7                          65.3   
+         222                          26.2                          55.1   
+         225                          21.4                          59.5   
+         524                          17.9                          29.4   
+         525                          27.2                          56.2   
+         526                          20.2                          61.1   
+         527                          22.2                          39.0   
+         550                          22.6                          56.3   
+         551                          22.0                          51.8   
+         579                          16.4                          54.0   
+         917                          19.3                          56.4   
+         
+              \% African American  \% Asian  \% Hispanic  \% White  \textbackslash{}
+         115                43.0      5.8        39.9      7.2   
+         120                40.5      4.5        39.4     12.5   
+         122                36.0      4.8        51.2      5.8   
+         123                47.4      3.4        45.5      1.9   
+         124                 8.0     29.0        12.1     46.9   
+         125                22.7     21.9        22.6     29.3   
+         127                44.3      3.1        45.7      5.4   
+         131                33.1     17.0        43.5      5.2   
+         134                69.6      3.3        23.3      2.2   
+         142                61.6      1.0        32.3      4.0   
+         145                43.2      6.7        25.7     21.6   
+         148                 6.9      1.3        77.7     12.8   
+         153                37.7     21.9        28.8      9.7   
+         154                33.9      3.6        55.3      5.3   
+         172                72.8      0.6        22.5      3.3   
+         188                24.6      6.3        34.1     30.2   
+         189                39.2      0.8        53.9      2.5   
+         191                 4.2      0.0        93.3      1.4   
+         201                65.0      0.3        31.6      1.3   
+         203                32.8     22.5        30.8     11.1   
+         210                21.3     51.0        20.4      4.3   
+         217                35.3      6.6        49.7      5.2   
+         218                65.9      3.8        24.2      2.9   
+         219                41.6      1.6        53.9      2.0   
+         222                50.9      1.4        36.3      8.3   
+         225                47.4      2.0        37.7     10.5   
+         524                27.5      2.2        19.7     47.5   
+         525                48.3      2.0        40.1      5.2   
+         526                54.8      0.8        32.6      7.4   
+         527                69.2      1.0        24.8      2.4   
+         550                65.2      0.0        29.7      2.9   
+         551                80.5      0.0        17.5      0.6   
+         579                44.6      1.9        46.8      4.5   
+         917                45.9      1.3        46.7      3.5   
+         
+              \% Native Hawaiian, Pacific Islander  \% Multi-Race, Non-Hispanic  \% Males  \textbackslash{}
+         115                                  0.4                         3.1     49.3   
+         120                                  0.0                         3.1     36.2   
+         122                                  0.0                         1.8     51.2   
+         123                                  0.8                         1.1     51.9   
+         124                                  0.0                         3.8     45.1   
+         125                                  0.2                         2.9     41.9   
+         127                                  0.1                         1.0     60.3   
+         131                                  0.0                         1.1     60.1   
+         134                                  0.0                         1.6     54.0   
+         142                                  0.0                         1.0     45.5   
+         145                                  0.2                         2.4     54.7   
+         148                                  0.0                         0.8     56.7   
+         153                                  0.4                         1.1     61.9   
+         154                                  0.3                         1.7     47.2   
+         172                                  0.0                         0.8     51.9   
+         188                                  0.0                         4.8     50.0   
+         189                                  0.1                         3.0     56.5   
+         191                                  0.0                         1.1     40.1   
+         201                                  0.0                         1.3     50.9   
+         203                                  0.1                         2.2     44.3   
+         210                                  0.2                         2.6     55.1   
+         217                                  0.7                         2.1     47.4   
+         218                                  0.2                         2.6     55.5   
+         219                                  0.0                         0.5     55.7   
+         222                                  0.0                         2.8     60.0   
+         225                                  0.2                         1.6     53.4   
+         524                                  0.0                         2.4     48.1   
+         525                                  0.2                         3.2     42.3   
+         526                                  0.0                         4.4     51.5   
+         527                                  0.2                         1.9     51.8   
+         550                                  0.4                         1.4     45.2   
+         551                                  0.6                         0.6     49.9   
+         579                                  0.0                         2.2     34.3   
+         917                                  0.1                         1.9     47.7   
+         
+              \% Females  Total \# of Classes  Average Class Size  \% Attending College  \textbackslash{}
+         115       50.7               101.0                16.8                 81.4   
+         120       63.8               249.0                14.6                 77.8   
+         122       48.8               226.0                16.5                 81.7   
+         123       48.1               168.0                15.3                 75.5   
+         124       54.9               790.0                25.8                 94.1   
+         125       58.1               680.0                17.9                 92.0   
+         127       39.7               321.0                17.8                 66.2   
+         131       39.9               451.0                15.2                 65.5   
+         134       46.0               172.0                16.6                 52.7   
+         142       54.5               115.0                10.7                 56.1   
+         145       45.3               211.0                17.1                  NaN   
+         148       43.3               460.0                17.7                 56.3   
+         153       38.1               247.0                17.0                 71.4   
+         154       52.8               107.0                21.9                 75.3   
+         172       48.1               184.0                18.2                 45.6   
+         188       50.0                80.0                11.9                 75.0   
+         189       43.5               450.0                11.7                 46.6   
+         191       59.9               129.0                17.5                  NaN   
+         201       49.1               163.0                16.5                 89.5   
+         203       55.7               392.0                22.3                 88.5   
+         210       44.9               186.0                24.7                 76.4   
+         217       52.6               151.0                17.7                 75.4   
+         218       44.5               548.0                17.3                 71.2   
+         219       44.3               215.0                15.1                 57.0   
+         222       40.0               310.0                15.3                 56.8   
+         225       46.6               243.0                18.0                 62.9   
+         524       51.9               270.0                20.6                 82.1   
+         525       57.7               280.0                15.8                 53.3   
+         526       48.5               209.0                14.4                 74.6   
+         527       48.2                75.0                34.0                 95.2   
+         550       54.8               130.0                12.1                 91.1   
+         551       50.1                92.0                17.8                 81.5   
+         579       65.7               164.0                17.1                 81.8   
+         917       52.3               206.0                26.5                 90.7   
+         
+              \% Private Two-Year  \% Private Four-Year  \% Public Two-Year  \textbackslash{}
+         115                 0.0                 42.9               25.7   
+         120                 1.6                 46.0               19.0   
+         122                 0.0                 36.0               37.1   
+         123                 0.0                 42.5               17.5   
+         124                 0.0                 59.7                1.5   
+         125                 0.0                 43.2                7.4   
+         127                 0.8                 17.6               48.9   
+         131                 0.0                 33.0               35.2   
+         134                 0.0                 10.3               69.2   
+         142                 0.0                 25.0               50.0   
+         145                 NaN                  NaN                NaN   
+         148                 0.0                 26.6               46.2   
+         153                 0.0                 16.7               55.6   
+         154                 1.7                 37.9               17.2   
+         172                 0.0                 22.6               58.1   
+         188                 0.0                 42.9               23.8   
+         189                 1.0                 26.8               55.7   
+         191                 NaN                  NaN                NaN   
+         201                 0.0                 58.8               15.7   
+         203                 0.0                 39.3               14.3   
+         210                 0.0                 28.6               21.4   
+         217                 2.0                 16.3               49.0   
+         218                 0.0                 28.6               46.4   
+         219                 1.9                 15.1               56.6   
+         222                 0.0                 26.0               54.0   
+         225                 1.3                 19.2               50.0   
+         524                 0.0                 28.3               17.4   
+         525                 0.0                 25.0               53.1   
+         526                 0.0                 44.7               31.9   
+         527                 0.0                 40.0               15.0   
+         550                 0.0                 58.5               14.6   
+         551                 0.0                 36.4               22.7   
+         579                 0.0                 19.4               36.1   
+         917                 0.0                 28.2               23.1   
+         
+              \% Public Four-Year  \% MA Community College  \% AP\_Score 1-2  \textbackslash{}
+         115                31.4                    25.7            94.4   
+         120                33.3                    19.0           100.0   
+         122                27.0                    36.0            81.7   
+         123                40.0                    17.5            56.3   
+         124                38.8                     1.5            17.3   
+         125                49.4                     7.4            49.7   
+         127                32.8                    47.3            96.2   
+         131                31.9                    34.1            74.0   
+         134                20.5                    66.7            95.7   
+         142                25.0                    50.0             NaN   
+         145                 NaN                     NaN             NaN   
+         148                27.3                    44.1            86.0   
+         153                27.8                    53.3            81.3   
+         154                43.1                    15.5             NaN   
+         172                19.4                    54.8            95.2   
+         188                33.3                    23.8             NaN   
+         189                16.5                    55.7             NaN   
+         191                 NaN                     NaN            33.7   
+         201                25.5                    15.7            89.9   
+         203                46.4                    14.3            60.1   
+         210                50.0                    21.4             NaN   
+         217                32.7                    46.9             NaN   
+         218                25.0                    45.2            66.0   
+         219                26.4                    52.8            89.3   
+         222                20.0                    52.0            92.9   
+         225                29.5                    46.2           100.0   
+         524                54.3                    17.4            46.6   
+         525                21.9                    53.1             NaN   
+         526                23.4                    31.9            94.2   
+         527                45.0                    15.0            79.4   
+         550                26.8                    14.6            87.5   
+         551                40.9                    22.7           100.0   
+         579                44.4                    36.1            80.6   
+         917                48.7                    23.1            60.0   
+         
+              \% AP\_Score 3-5  Average SAT\_Reading  Average SAT\_Writing  \textbackslash{}
+         115             5.6                377.0                395.0   
+         120             0.0                437.0                427.0   
+         122            18.3                396.0                390.0   
+         123            43.8                313.0                305.0   
+         124            82.7                629.0                614.0   
+         125            50.3                526.0                527.0   
+         127             3.8                357.0                352.0   
+         131            26.0                346.0                349.0   
+         134             4.3                337.0                340.0   
+         142             NaN                373.0                384.0   
+         145             NaN                338.0                316.0   
+         148            14.0                384.0                389.0   
+         153            18.8                345.0                359.0   
+         154             NaN                392.0                393.0   
+         172             4.8                355.0                347.0   
+         188             NaN                411.0                364.0   
+         189             NaN                352.0                346.0   
+         191            66.3                362.0                368.0   
+         201            10.1                397.0                404.0   
+         203            39.9                482.0                482.0   
+         210             NaN                409.0                409.0   
+         217             NaN                382.0                368.0   
+         218            34.0                365.0                370.0   
+         219            10.7                333.0                333.0   
+         222             7.1                387.0                380.0   
+         225             0.0                360.0                354.0   
+         524            53.4                491.0                508.0   
+         525             NaN                410.0                381.0   
+         526             5.8                367.0                336.0   
+         527            20.6                426.0                424.0   
+         550            12.5                395.0                400.0   
+         551             0.0                374.0                342.0   
+         579            19.4                386.0                395.0   
+         917            40.0                435.0                433.0   
+         
+              Average SAT\_Math  Average Salary  Total SAT  
+         115             407.0         88790.0     1179.0  
+         120             435.0         88790.0     1299.0  
+         122             431.0         88790.0     1217.0  
+         123             347.0         88790.0      965.0  
+         124             647.0         88790.0     1890.0  
+         125             557.0         88790.0     1610.0  
+         127             392.0         88790.0     1101.0  
+         131             433.0         88790.0     1128.0  
+         134             374.0         88790.0     1051.0  
+         142             405.0         88790.0     1162.0  
+         145             352.0         88790.0     1006.0  
+         148             415.0         88790.0     1188.0  
+         153             405.0         88790.0     1109.0  
+         154             437.0         88790.0     1222.0  
+         172             380.0         88790.0     1082.0  
+         188             389.0         88790.0     1164.0  
+         189             358.0         88790.0     1056.0  
+         191             402.0         88790.0     1132.0  
+         201             428.0         88790.0     1229.0  
+         203             527.0         88790.0     1491.0  
+         210             459.0         88790.0     1277.0  
+         217             390.0         88790.0     1140.0  
+         218             402.0         88790.0     1137.0  
+         219             362.0         88790.0     1028.0  
+         222             401.0         88790.0     1168.0  
+         225             372.0         88790.0     1086.0  
+         524             536.0             NaN     1535.0  
+         525             409.0             NaN     1200.0  
+         526             357.0             NaN     1060.0  
+         527             489.0             NaN     1339.0  
+         550             460.0             NaN     1255.0  
+         551             406.0             NaN     1122.0  
+         579             397.0             NaN     1178.0  
+         917             504.0             NaN     1372.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}average SAT score in Massachusetts}
+         \PY{n}{ma\PYZus{}sat} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT score in MA: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ma\PYZus{}sat}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}average SAT score in Boston}
+         \PY{n}{boston\PYZus{}sat} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average SAT score in Boston:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{boston\PYZus{}sat}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ma\PYZus{}sat} \PY{o}{\PYZhy{}} \PY{n}{boston\PYZus{}sat} \PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{points below MA average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Average SAT score in MA:  1486
+Average SAT score in Boston: 1211
+Boston scores 275 points below MA average
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}list of public and charter schools}
+         \PY{n}{public\PYZus{}schools} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{charter\PYZus{}schools} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}making a list of boston public schools}
+         \PY{n}{public\PYZus{}schools}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Public School}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}making a list of boston charter schools}
+         \PY{n}{charter\PYZus{}schools}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Charter School}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}number of public schools in boston}
+         \PY{k}{for} \PY{n}{school} \PY{o+ow}{in} \PY{n}{public\PYZus{}schools}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston has}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{school}\PY{p}{)} \PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{public schools}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}number of charter schools in boston}
+         \PY{k}{for} \PY{n}{school} \PY{o+ow}{in} \PY{n}{charter\PYZus{}schools}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston has}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{school}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{charter schools}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Boston has 26 public schools
+Boston has 8 charter schools
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The school that scores the highest SAT is}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,} \PY{n}{boston\PYZus{}schools}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The school that scores the lowest SAT is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{boston\PYZus{}schools}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmin}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The school that scores the highest SAT is Boston Latin
+The school that scores the lowest SAT is Boston International High School
+
+    \end{Verbatim}
+
+    \section{Comparing Boston schools to those of
+MA}\label{comparing-boston-schools-to-those-of-ma}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total SAT}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{shade}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{shade}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mi}{1500}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{0035}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA Avg SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mi}{1050}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{0035}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston Avg SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAT Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{332}\PY{p}{)}\PY{p}{,}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{34}\PY{p}{)}\PY{p}{,}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mi}{350}\PY{p}{,}\PY{l+m+mi}{1486}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA mean SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{frameon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} (array([15., 13.,  3.,  2.,  1.]),
+          array([ 965., 1150., 1335., 1520., 1705., 1890.]),
+          <a list of 5 Patch objects>)
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} E}\PY{l+s+s1}{conomically Disadvantaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent Economically Disatvantaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boston Schoools}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} Text(0.5,1,'Boston Schoools')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{}comparing 3 types of schools: Boston Latin School, Brighton High School, Edward M Kennedy}
+         \PY{n}{compare} \PY{o}{=} \PY{n}{boston\PYZus{}schools}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{124}\PY{p}{,}\PY{l+m+mi}{127}\PY{p}{,}\PY{l+m+mi}{579}\PY{p}{]}\PY{p}{,}\PY{n}{useful\PYZus{}cols}\PY{p}{]}
+         \PY{n}{compare}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:}                                            School Name     School Type  \textbackslash{}
+         124                                       Boston Latin   Public School   
+         127                                      Brighton High   Public School   
+         579  Edward M. Kennedy Academy for Health Careers ({\ldots}  Charter School   
+         
+                  Town   Zip              Grade  \% First Language Not English  \textbackslash{}
+         124    Boston  2115  07,08,09,10,11,12                          32.7   
+         127  Brighton  2135        09,10,11,12                          59.3   
+         579    Boston  2115        09,10,11,12                          50.7   
+         
+              \% English Language Learner  \% Students With Disabilities  \textbackslash{}
+         124                         3.2                           2.1   
+         127                        41.6                          23.8   
+         579                        13.6                          16.4   
+         
+              \% Economically Disadvantaged  \% African American  \% Asian  \% Hispanic  \textbackslash{}
+         124                          15.7                 8.0     29.0        12.1   
+         127                          61.0                44.3      3.1        45.7   
+         579                          54.0                44.6      1.9        46.8   
+         
+              \% White  \% Native Hawaiian, Pacific Islander  \% Multi-Race, Non-Hispanic  \textbackslash{}
+         124     46.9                                  0.0                         3.8   
+         127      5.4                                  0.1                         1.0   
+         579      4.5                                  0.0                         2.2   
+         
+              \% Males  \% Females  Total \# of Classes  Average Class Size  \textbackslash{}
+         124     45.1       54.9               790.0                25.8   
+         127     60.3       39.7               321.0                17.8   
+         579     34.3       65.7               164.0                17.1   
+         
+              \% Attending College  \% Private Two-Year  \% Private Four-Year  \textbackslash{}
+         124                 94.1                 0.0                 59.7   
+         127                 66.2                 0.8                 17.6   
+         579                 81.8                 0.0                 19.4   
+         
+              \% Public Two-Year  \% Public Four-Year  \% MA Community College  \textbackslash{}
+         124                1.5                38.8                     1.5   
+         127               48.9                32.8                    47.3   
+         579               36.1                44.4                    36.1   
+         
+              \% AP\_Score 1-2  \% AP\_Score 3-5  Average SAT\_Reading  Average SAT\_Writing  \textbackslash{}
+         124            17.3            82.7                629.0                614.0   
+         127            96.2             3.8                357.0                352.0   
+         579            80.6            19.4                386.0                395.0   
+         
+              Average SAT\_Math  Average Salary  
+         124             647.0         88790.0  
+         127             392.0         88790.0  
+         579             397.0             NaN  
+\end{Verbatim}
+            
+    \section{Creating a Regression Model}\label{creating-a-regression-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{X} \PY{o}{=} \PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{} E}\PY{l+s+s2}{conomically Disadvantaged}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{boston\PYZus{}schools}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Create training and test set}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}fit linear regression into the training set}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{n}{regressor} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{regressor}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}predicting the dependent variable(Sat Scores)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{}visualizing the model}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent Economically Disadvantaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston Schools (Training Set)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent Economically Disadvantaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boston Schools (Test Set)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} Text(0.5,1,'Boston Schools (Test Set)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{X} \PY{o}{=} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{} E}\PY{l+s+s2}{conomically Disadvantaged}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{school\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total SAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Create training and test set}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{X\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}fit linear regression into the training set}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{n}{regressor} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{regressor}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}predicting the dependent variable(Sat Scores)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}visualizing the model}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percent Economically Dissadvantaged}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA Schools (Training Set)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{regressor}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percent Economically Dissadvantaged}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MA Schools (Test Set)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} Text(0.5,1,'MA Schools (Test Set)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
