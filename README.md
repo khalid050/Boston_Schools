@@ -1,6 +1,6 @@
 # Boston Schools
 ### Question:
-### How do schools in Boston perform relative to other schools in MA
+### How do schools in Boston perform relative to other schools in MA?
 
 
 
