@@ -5,5 +5,5 @@
 
 
 ### Data 
-### This dataset compiles data from #http://profiles.doe.mass.edu/state_report/
+### This dataset compiles data from http://profiles.doe.mass.edu/state_report/
 
